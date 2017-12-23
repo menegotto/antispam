@@ -1,6 +1,7 @@
 # roles/mariadb/defaults/main.yml
 ---
 
+#configure password and users
 mariadb_databases: []
 mariadb_users: []
 mariadb_root_password: ''
@@ -16,6 +17,7 @@ mariadb_bind_address: '127.0.0.1'
 mariadb_port: 3306
 mariadb_skip_name_resolve: 1
 
+##tunning
 mariadb_log_warnings: '1'
 mariadb_slow_query_log: '0'
 mariadb_long_query_time: '10'
