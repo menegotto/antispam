@@ -1,0 +1,10 @@
+- name: restart_postfix
+  service: name=postfix state=restarted
+- name: postmap_transport
+  shell: /sbin/postmap /etc/postfix/transport
+- name: postmap_relay_recipients
+  shell: /sbin/postmap /etc/postfix/relay_recipients
+- name: restart_mailscanner
+  action: service name=mailscanner state=restarted
+- name: restart_httpd
+  service: name=httpd state=restarted

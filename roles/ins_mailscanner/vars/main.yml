@@ -1,0 +1,11 @@
+deploy_mailwatch: True
+mailscanner_version: 5.0.3-7
+mailscanner_org_name: MScan
+mailscanner_org_long_name: MailScanner service
+mailscanner_org_web_site: "http://www.mailscanner.info"
+mailwatch_version: 1.2.0-rc.2
+mailwatch_admin_user: admin
+mailwatch_admin_password: "admin"
+mailwatch_mysql_user: root
+mailwatch_mysql_password: ""
+mailwatch_timezone: "Etc/UTC"

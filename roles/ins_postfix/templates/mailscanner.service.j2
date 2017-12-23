@@ -1,0 +1,14 @@
+[Unit]
+Description=Mailscanner
+After=syslog.target network.target
+Conflicts=sendmail.service exim.service
+
+[Service]
+Type=forking
+EnvironmentFile=-/etc/sysconfig/network
+ExecStart=/etc/init.d/mailscanner start
+ExecReload=/etc/init.d/mailscanner reload
+ExecStop=/etc/init.d/mailscanner stop
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: yes
+  roles:
+    - ins_postfix
+    - ins_mysql
+    - ins_mailwatch
+    - ins_mailscanner

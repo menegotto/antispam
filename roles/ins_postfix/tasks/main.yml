@@ -1,0 +1,45 @@
+---
+- name: install packages
+  yum:
+    pkg: '{{ item }}'
+    state: latest
+  with_items: '{{ packages }}'
+
+
+- name: Install EPEL repo.
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
+    state: present
+
+- name: Import EPEL GPG key.
+  rpm_key:
+    key: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}
+    state: present        
+        
+- name: Adding SPF pkgs for postfix
+  yum: 
+    name: pypolicyd-spf
+    state: installed
+
+- name: Configure postfix main.cf
+  template: src=postfix-main.cf.j2 dest=/etc/postfix/main.cf
+  notify: restart_postfix
+
+- name: configure systemd
+  template: src=mailscanner.service.j2 dest=/usr/lib/systemd/system/mailscanner.service
+  notify: restart_mailscanner
+
+- name: Configure postfix master.cf (Adding policyd for SPF)
+  template: src=postfix-master.cf.j2 dest=/etc/postfix/master.cf
+  notify: restart_postfix
+
+- name: Configure postfix transport
+  template: src=postfix-transport.j2 dest=/etc/postfix/transport
+  notify: postmap_transport
+
+- name: Configure postfix header checks
+  template: src=postfix-header_checks.j2 dest=/etc/postfix/header_checks
+  notify: restart_postfix
+
+- name: Ensuring postfix is enabled
+  service: name=postfix state=started enabled=yes

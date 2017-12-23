@@ -1,0 +1,12 @@
+packages:
+  - postfix
+  - httpd
+  - perl-DBD-mysql
+
+relay_domains:
+  - item: domain1.com
+    smtp_host: 192.168.1.1
+  - item: domain2.com
+    smtp_host: 192.168.1.2
+postfix_myhostname: "antispam"
+postfix_mynetworks: "127.0.0.0/8"
