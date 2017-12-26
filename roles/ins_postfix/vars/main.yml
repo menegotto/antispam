@@ -2,7 +2,8 @@ packages:
   - postfix
   - httpd
   - perl-DBD-mysql
-
+  - wget
+  - gcc
 relay_domains:
   - item: domain1.com
     smtp_host: 192.168.1.1
