@@ -3,6 +3,7 @@
   become: yes
   roles:
     - ins_postfix
+    - ins_dcc
     - ins_mysql
     - ins_mailwatch
     - ins_mailscanner

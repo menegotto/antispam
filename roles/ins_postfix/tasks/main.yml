@@ -43,3 +43,11 @@
 
 - name: Ensuring postfix is enabled
   service: name=postfix state=started enabled=yes
+
+- selinux:
+    policy: targeted
+    state: permissive
+
+- name: firewall dow
+  service: name=firewalld state=stop enabled=yes
+
