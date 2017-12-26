@@ -1,0 +1,26 @@
+- name: get dcc source
+  get_url:
+    url: http://www.dcc-servers.net/dcc/source/dcc-dccproc.tar.Z
+    dest: /tmp/
+
+- name: Extract dcc
+  unarchive:
+    copy: no
+    src: /tmp/dcc-dccproc.tar.Z
+    dest: /tmp/
+
+- name: Running ./configure for FFMPEG
+  command: '"{{ item }}" chdir=/tmp/dcc-dccproc-{{dcc_version}}'
+  with_items:
+    - ./configure
+
+- name: Running "make" for FFMPEG
+  command: '"{{ item }}" chdir=/tmp/dcc-dccproc-{{dcc_version}}'
+  with_items:
+    - make
+
+- name: Running "make install" for FFMPEG
+  command: 'make install chdir=/tmp/dcc-dccproc-{{dcc_version}}'
+
+- name: Create symlink
+  shell: cp -d /var/dcc/libexec/dccifd /usr/local/bin/dccifd

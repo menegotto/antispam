@@ -46,6 +46,8 @@
     - GeoIP
     - perl-Net-Patricia
     - perl-Mail-DKIM
+    - gcc
+    - wget
 
 - name: Removing example from freschlam
   lineinfile: dest=/etc/freshclam.conf state=absent regexp='^Example'
@@ -78,6 +80,10 @@
 
 - name: Configure MailScanner local config
   template: src=MailScanner-local.conf.j2 dest=/etc/MailScanner/conf.d/01_local.conf
+  notify: restart_mailscanner
+
+- name: configure DCC
+  template: src=spamassassin.conf.j2 dest=/etc/MailScanner/spamassassin.conf  
   notify: restart_mailscanner
 
 - name: Allowing all filetypes/names from localhost (to be able to release)
