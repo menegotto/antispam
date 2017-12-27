@@ -321,3 +321,30 @@ envelope_sender_header X-yoursite-MailScanner-From
 header MS_FOUND_SPAMVIRUS exists:X-MailScanner-SpamVirus-Report
 score  MS_FOUND_SPAMVIRUS 3.0
 
+header FROM_HAS_MIXED_NUMS      From =~ /\d+[a-z]+\d+\S*@/i
+describe FROM_HAS_MIXED_NUMS    From: contains numbers mixed in with letters
+score FROM_HAS_MIXED_NUMS 0.50
+
+score HEADER_FROM_DIFFERENT_DOMAINS 2.0
+
+header CONTAINS_UNSUBSCRIBE_LIST exists:List-Unsubscribe
+score CONTAINS_UNSUBSCRIBE_LIST 6.0
+describe CONTAINS_UNSUBSCRIBE_LIST Message contains the header List-unsubscribe
+
+header PRECEDENCE_BULK Precedence =~ /bulk/i
+score PRECEDENCE_BULK 3.0
+describe PRECEDENCE_BULK Message contains the header Precedence with the value bulk
+
+score HTML_MESSAGE 0.50
+
+score T_REMOTE_IMAGE 0.20
+
+score HTML_FONT_LOW_CONTRAST 0.20
+
+score LOTS_OF_MONEY 0.50
+
+score HTML_IMAGE_RATIO_02 0.90
+
+header          __RELAYCOUNTRY_BAD              X-Relay-Countries =~ /^(CN|RU|SU|TW|MD|JP|US|IN|FR|IT|HK|NL|KR|GB|PT|UA|VN)/
+#meta            LM2_BAD_COUNTRY_PENALTY         (__RELAYCOUNTRY_BAD && (BAYES_99 || BAYES_999 || BAYES_95 || BAYES_50))
+score           LM2_BAD_COUNTRY_PENALTY         1.5
