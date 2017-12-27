@@ -82,6 +82,10 @@
   template: src=MailScanner-local.conf.j2 dest=/etc/MailScanner/conf.d/01_local.conf
   notify: restart_mailscanner
 
+- name: configure v310
+  template: src=v310.pre.j2 dest=/etc/mail/spamassassin/v310.pre
+  notify: restart_mailscanner
+
 - name: configure DCC
   template: src=spamassassin.conf.j2 dest=/etc/MailScanner/spamassassin.conf  
   notify: restart_mailscanner
